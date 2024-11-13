@@ -2,8 +2,10 @@ name: Update Models JSON
 
 on:
   push:
+    branches:
+      - main  # Triggers on every push to the main branch
     paths:
-      - "models/*"  # Run this workflow only if files in the models directory change
+      - "public/models/*"  # Only triggers if files in the models directory change
 
 jobs:
   update-models-json:
@@ -15,11 +17,12 @@ jobs:
 
       - name: Generate models.json
         run: |
+          mkdir -p public/models  # Ensure the public/models directory exists
           files=$(ls models/*.glb)
-          echo '[' > models/models.json
+          echo '[' > public/models/models.json
           for file in $files; do
             filename=$(basename "$file" .glb)
-            echo "{\"name\": \"$filename\", \"file\": \"$file\"}," >> models/models.json
+            echo "{\"name\": \"$filename\", \"file\": \"$file\"}," >> public/models/models.json
           done
           sed -i '$ s/,$//' public/models/models.json  # Remove trailing comma from the last entry
           echo ']' >> public/models/models.json
@@ -28,6 +31,4 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add models/models.json
-          git commit -m "Update models.json with latest model list"
-          git push
+          git
