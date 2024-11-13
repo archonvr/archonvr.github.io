@@ -5,7 +5,7 @@ on:
     branches:
       - main  # Triggers on every push to the main branch
     paths:
-      - "public/models/*"  # Only triggers if files in public/models directory change
+      - "public/models/*"  # Only triggers if files in the public/models directory change
 
 jobs:
   update-models-json:
@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  # Updated to v3 to use Node.js 16
 
       - name: Generate models.json
         run: |
