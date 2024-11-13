@@ -1,0 +1,33 @@
+name: Update Models JSON
+
+on:
+  push:
+    paths:
+      - "models/*"  # Run this workflow only if files in the models directory change
+
+jobs:
+  update-models-json:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Generate models.json
+        run: |
+          files=$(ls models/*.glb)
+          echo '[' > models/models.json
+          for file in $files; do
+            filename=$(basename "$file" .glb)
+            echo "{\"name\": \"$filename\", \"file\": \"$file\"}," >> models/models.json
+          done
+          sed -i '$ s/,$//' models/models.json  # Remove trailing comma from the last entry
+          echo ']' >> models/models.json
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add models/models.json
+          git commit -m "Update models.json with latest model list"
+          git push
