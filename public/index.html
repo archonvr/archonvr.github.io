@@ -54,7 +54,7 @@
 
             // Fetch models from the static JSON file
             try {
-                const response = await fetch('https://archonvr.github.io/models/models.json'); // Updated to point to the GitHub-hosted JSON file
+                const response = await fetch('https://archonvr.github.io/public/models/models.json'); // Updated to point to the GitHub-hosted JSON file
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
