@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # Use Node.js 16-compatible version
+        uses: actions/checkout@v3  # Compatible with Node.js 20
 
       - name: Generate models.json
         run: |
