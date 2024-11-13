@@ -1,0 +1,5 @@
+[
+    { "name": "model1", "file": "models/model1.glb" },
+    { "name": "model2", "file": "models/model2.glb" },
+    { "name": "model3", "file": "models/model3.glb" }
+]
