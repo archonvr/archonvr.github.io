@@ -1,1 +1,5 @@
-[]
+[
+{"name": "Ceresiosaurus", "file": "models/Ceresiosaurus.glb"},
+{"name": "Neosticosaurus", "file": "models/Neosticosaurus.glb"},
+{"name": "Ticintetes", "file": "models/Ticintetes.glb"}
+]
