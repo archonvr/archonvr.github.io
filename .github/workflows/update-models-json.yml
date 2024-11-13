@@ -5,7 +5,7 @@ on:
     branches:
       - main  # Triggers on every push to the main branch
     paths:
-      - "public/models/*"  # Only triggers if files in the models directory change
+      - "public/models/*"  # Only triggers if files in public/models directory change
 
 jobs:
   update-models-json:
@@ -18,7 +18,7 @@ jobs:
       - name: Generate models.json
         run: |
           mkdir -p public/models  # Ensure the public/models directory exists
-          files=$(ls models/*.glb)
+          files=$(ls public/models/*.glb)
           echo '[' > public/models/models.json
           for file in $files; do
             filename=$(basename "$file" .glb)
@@ -31,4 +31,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git
+          git add public/models/models.json
+          git commit -m "Update models.json with latest model list"
+          git push
