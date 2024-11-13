@@ -18,9 +18,9 @@ jobs:
       - name: Generate models.json
         run: |
           mkdir -p public/models  # Ensure the public/models directory exists
-          if ls models/*.glb 1> /dev/null 2>&1; then
+          if ls public/models/*.glb 1> /dev/null 2>&1; then
             echo '[' > public/models/models.json
-            for file in models/*.glb; do
+            for file in public/models/*.glb; do
               filename=$(basename "$file" .glb)
               echo "{\"name\": \"$filename\", \"file\": \"models/$filename.glb\"}," >> public/models/models.json
             done
