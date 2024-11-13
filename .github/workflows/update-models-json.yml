@@ -5,7 +5,7 @@ on:
     branches:
       - main  # Triggers on every push to the main branch
     paths:
-      - "public/models/*"  # Only triggers if files in the public/models directory change
+      - "models/*"  # Only triggers if files in the models directory change
 
 jobs:
   update-models-json:
@@ -13,16 +13,16 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # Compatible with Node.js 20
+        uses: actions/checkout@v3  # Use the latest stable version compatible with Node.js 16 and 20
 
       - name: Generate models.json
         run: |
           mkdir -p public/models  # Ensure the public/models directory exists
-          files=$(ls public/models/*.glb)
+          files=$(ls models/*.glb)
           echo '[' > public/models/models.json
           for file in $files; do
             filename=$(basename "$file" .glb)
-            echo "{\"name\": \"$filename\", \"file\": \"public/models/$filename.glb\"}," >> public/models/models.json
+            echo "{\"name\": \"$filename\", \"file\": \"models/$filename.glb\"}," >> public/models/models.json
           done
           sed -i '$ s/,$//' public/models/models.json  # Remove trailing comma from the last entry
           echo ']' >> public/models/models.json
